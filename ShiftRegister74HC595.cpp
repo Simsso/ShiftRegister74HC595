@@ -32,9 +32,9 @@ ShiftRegister74HC595::ShiftRegister74HC595(int numberOfShiftRegisters, int seria
 void ShiftRegister74HC595::setAll(uint8_t * digitalValues) {
     int byte;
     
-    // go through all bytes (most significant byte first)
-    for (byte = 0 ; byte < _numberOfShiftRegisters; byte++)
+    for (byte = _numberOfShiftRegisters - 1; byte >= 0; byte--) {
         shiftOut(_serialDataPin, _clockPin, MSBFIRST, digitalValues[byte]);
+    }
     
     _digitalValues = digitalValues; 
     
