@@ -23,7 +23,8 @@ ShiftRegister74HC595::ShiftRegister74HC595(int numberOfShiftRegisters, int seria
     digitalWrite(latchPin, LOW);
     
     // allocates the specified number of bytes and initializes them to zero
-    _digitalValues = (uint8_t *)calloc(numberOfShiftRegisters, sizeof(uint8_t));
+    _digitalValues = (uint8_t *)malloc(numberOfShiftRegisters * sizeof(uint8_t));
+    memset(_digitalValues, 0, numberOfShiftRegisters * sizeof(uint8_t));
     
     setAll(_digitalValues); // reset shift register
 }
