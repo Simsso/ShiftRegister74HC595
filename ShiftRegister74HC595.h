@@ -17,6 +17,8 @@ public:
     void setAll(uint8_t * digitalValues);
     uint8_t * getAll(); 
     void set(int pin, uint8_t value);
+	void setNoUpdate(int pin, uint8_t value);
+	void updateRegisters();
     void setAllLow();
     void setAllHigh(); 
     uint8_t get(int pin);
