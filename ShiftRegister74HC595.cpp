@@ -58,6 +58,18 @@ void ShiftRegister74HC595::set(int pin, uint8_t value) {
     setAll(_digitalValues);
 }
 
+void ShiftRegister74HC595::updateRegisters()
+{
+	 setAll(_digitalValues);
+}
+
+void ShiftRegister74HC595::setNoUpdate(int pin, uint8_t value) {
+    if (value == 1)
+        _digitalValues[pin / 8] |= 1 << (pin % 8);
+    else
+        _digitalValues[pin / 8] &= ~(1 << (pin % 8));
+}
+
 
 uint8_t ShiftRegister74HC595::get(int pin) {
     return (_digitalValues[pin / 8] >> (pin % 8)) & 1;
