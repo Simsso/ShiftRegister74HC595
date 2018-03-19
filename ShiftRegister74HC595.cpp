@@ -20,7 +20,7 @@ ShiftRegister74HC595::ShiftRegister74HC595(int numberOfShiftRegisters, int seria
     // set pins low
     digitalWrite(clockPin, LOW);
     digitalWrite(serialDataPin, LOW);
-    digitalWrite(latchPin, LOW);
+    digitalWrite(latchPin, HIGH);
     
     // allocates the specified number of bytes and initializes them to zero
     _digitalValues = (uint8_t *)malloc(numberOfShiftRegisters * sizeof(uint8_t));
@@ -33,14 +33,13 @@ ShiftRegister74HC595::ShiftRegister74HC595(int numberOfShiftRegisters, int seria
 void ShiftRegister74HC595::setAll(uint8_t * digitalValues) {
     int byte;
     
+    digitalWrite(_latchPin, LOW); 
     for (byte = _numberOfShiftRegisters - 1; byte >= 0; byte--) {
         shiftOut(_serialDataPin, _clockPin, MSBFIRST, digitalValues[byte]);
     }
-    
-    _digitalValues = digitalValues; 
-    
     digitalWrite(_latchPin, HIGH); 
-    digitalWrite(_latchPin, LOW); 
+    
+    _digitalValues = digitalValues;    
 }
 
 
