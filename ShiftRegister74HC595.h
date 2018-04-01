@@ -1,7 +1,7 @@
 /*
-  ShiftRegister74HC595.h - Library for easy control of the 74HC595 shift register.
-  Created by Timo Denk (www.simsso.de), Nov 2014.
-  Additional information are available on http://shiftregister.simsso.de/
+  ShiftRegister74HC595.h - Library for simplified control of 74HC595 shift registers.
+  Created by Timo Denk (www.timodenk.com), Nov 2014.
+  Additional information is available at http://shiftregister.simsso.de/
   Released into the public domain.
 */
 
