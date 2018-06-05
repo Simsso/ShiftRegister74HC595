@@ -1,6 +1,10 @@
-# ShiftRegister 74HC595 Arduino Library
-This library simplifies shift registers usage. It allows, for instance, to set shift register pins just like normal Arduino pins: `sr.set(1, HIGH)`.
+# 74LS47 BCD to Seven Segment Display Decoder/Driver Arduino Library
+This library allows you to interact with your decoder/driver ICs as objects, and allows for further extensibility.
 
-The **documentation** is available at http://shiftregister.simsso.de/.
+The **documentation** is coming soon.
 
-An **example** sketch can be found in this repository at [/examples/example/example.ino](https://github.com/Simsso/ShiftRegister74HC595/blob/master/examples/example/example.ino).
+An **example** sketch can be found in this repository at [/examples/example/example.ino](https://github.com/shafeenr/BCDDecoderDriver74LS47/blob/master/examples/example/example.ino).
+
+**THIS LIBRARY IS UNTESTED AND IS EXTREMELY PRONE TO BUGS AND ERRORS FOR THE TIME BEING. I AM NOT RESPONSIBLE FOR YOUR HARDWARE. READ THE [LICENSE](https://github.com/shafeenr/BCDDecoderDriver74LS47/blob/master/LICENSE) FOR MORE INFORMATION**
+
+All suggestions, modifications and improvements welcome.
