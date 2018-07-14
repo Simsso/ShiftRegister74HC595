@@ -6,4 +6,4 @@ setAllHigh	KEYWORD2
 get	KEYWORD2
 getAll	KEYWORD2
 setNoUpdate	KEYWORD2
-updateRegisters	KEYWORDS2
+updateRegisters	KEYWORD2
