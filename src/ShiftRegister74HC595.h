@@ -14,7 +14,12 @@ class ShiftRegister74HC595
 {
 public:
     ShiftRegister74HC595(int numberOfShiftRegisters, int serialDataPin, int clockPin, int latchPin);
-    void setAll(uint8_t * digitalValues);
+    ~ShiftRegister74HC595();
+    void setAll(const uint8_t * digitalValues);
+#ifdef __AVR__
+    void setAll_P(const uint8_t * digitalValuesProgmem); // Experimental, PROGMEM data
+#endif
+
     uint8_t * getAll(); 
     void set(int pin, uint8_t value);
     void setNoUpdate(int pin, uint8_t value);
