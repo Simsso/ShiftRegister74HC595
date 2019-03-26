@@ -87,7 +87,7 @@ void ShiftRegister74HC595::set(int pin, uint8_t value)
 void ShiftRegister74HC595::updateRegisters()
 {
     for (int i = _numberOfShiftRegisters - 1; i >= 0; i--) {
-        shiftOut(_serialDataPin, _clockPin, MSBFIRST, digitalValues[i]);
+        shiftOut(_serialDataPin, _clockPin, MSBFIRST, _digitalValues[i]);
     }
     
     digitalWrite(_latchPin, HIGH); 

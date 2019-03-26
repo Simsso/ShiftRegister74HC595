@@ -19,7 +19,6 @@ public:
 #ifdef __AVR__
     void setAll_P(const uint8_t * digitalValuesProgmem); // Experimental, PROGMEM data
 #endif
-
     uint8_t * getAll(); 
     void set(int pin, uint8_t value);
     void setNoUpdate(int pin, uint8_t value);
