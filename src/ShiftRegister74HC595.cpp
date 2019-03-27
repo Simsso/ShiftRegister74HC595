@@ -57,7 +57,7 @@ void ShiftRegister74HC595::setAll(const uint8_t * digitalValues)
 // For example with:
 //     const uint8_t myFlashData[] PROGMEM = { 0x0F, 0x81 };
 #ifdef __AVR__
-void setAll_P(const uint8_t * digitalValuesProgmem)
+void ShiftRegister74HC595::setAll_P(const uint8_t * digitalValuesProgmem)
 {
     PGM_VOID_P p = reinterpret_cast<PGM_VOID_P>(digitalValuesProgmem);
     memcpy_P( _digitalValues, p, _numberOfShiftRegisters);
