@@ -36,12 +36,14 @@ ShiftRegister74HC595::ShiftRegister74HC595(int numberOfShiftRegisters, int seria
     updateRegisters();       // reset shift register
 }
 
+
 // ShiftRegister74HC595 destructor
 // The memory allocated in the constructor is also released.
 ShiftRegister74HC595::~ShiftRegister74HC595()
 {
     free(_digitalValues);
 }
+
 
 // Set all pins of the shift registers at once.
 // digitalVAlues is a uint8_t array where the length is equal to the number of shift registers.
@@ -81,6 +83,7 @@ void ShiftRegister74HC595::set(int pin, uint8_t value)
     setNoUpdate(pin, value);
     updateRegisters();
 }
+
 
 // Updates the shift register pins to the stored output values.
 // This is the function that actually writes data into the shift registers of the 74HC595
