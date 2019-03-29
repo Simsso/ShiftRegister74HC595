@@ -14,44 +14,58 @@ ShiftRegister74HC595::ShiftRegister74HC595(int numberOfShiftRegisters, int seria
 {
     // set attributes
     _numberOfShiftRegisters = numberOfShiftRegisters;
-    
+
     _clockPin = clockPin;
     _serialDataPin = serialDataPin;
     _latchPin = latchPin;
-    
+
     // define pins as outputs
     pinMode(clockPin, OUTPUT);
     pinMode(serialDataPin, OUTPUT);
     pinMode(latchPin, OUTPUT);
-    
+
     // set pins low
     digitalWrite(clockPin, LOW);
     digitalWrite(serialDataPin, LOW);
     digitalWrite(latchPin, LOW);
-    
+
     // allocates the specified number of bytes and initializes them to zero
     _digitalValues = (uint8_t *)malloc(numberOfShiftRegisters * sizeof(uint8_t));
     memset(_digitalValues, 0, numberOfShiftRegisters * sizeof(uint8_t));
-    
-    setAll(_digitalValues); // reset shift register
+
+    updateRegisters();       // reset shift register
+}
+
+
+// ShiftRegister74HC595 destructor
+// The memory allocated in the constructor is also released.
+ShiftRegister74HC595::~ShiftRegister74HC595()
+{
+    free(_digitalValues);
 }
 
 
 // Set all pins of the shift registers at once.
 // digitalVAlues is a uint8_t array where the length is equal to the number of shift registers.
-void ShiftRegister74HC595::setAll(uint8_t * digitalValues)
+void ShiftRegister74HC595::setAll(const uint8_t * digitalValues)
 {
-    int byte;
-    
-    for (byte = _numberOfShiftRegisters - 1; byte >= 0; byte--) {
-        shiftOut(_serialDataPin, _clockPin, MSBFIRST, digitalValues[byte]);
-    }
-    
-    _digitalValues = digitalValues; 
-    
-    digitalWrite(_latchPin, HIGH); 
-    digitalWrite(_latchPin, LOW); 
+    memcpy( _digitalValues, digitalValues, _numberOfShiftRegisters);   // dest, src, size
+    updateRegisters();
 }
+
+
+// Experimental
+// The same as setAll, but the data is located in PROGMEM
+// For example with:
+//     const uint8_t myFlashData[] PROGMEM = { 0x0F, 0x81 };
+#ifdef __AVR__
+void ShiftRegister74HC595::setAll_P(const uint8_t * digitalValuesProgmem)
+{
+    PGM_VOID_P p = reinterpret_cast<PGM_VOID_P>(digitalValuesProgmem);
+    memcpy_P( _digitalValues, p, _numberOfShiftRegisters);
+    updateRegisters();
+}
+#endif
 
 
 // Retrieve all states of the shift registers' output pins.
@@ -70,10 +84,17 @@ void ShiftRegister74HC595::set(int pin, uint8_t value)
     updateRegisters();
 }
 
+
 // Updates the shift register pins to the stored output values.
+// This is the function that actually writes data into the shift registers of the 74HC595
 void ShiftRegister74HC595::updateRegisters()
 {
-	 setAll(_digitalValues);
+    for (int i = _numberOfShiftRegisters - 1; i >= 0; i--) {
+        shiftOut(_serialDataPin, _clockPin, MSBFIRST, _digitalValues[i]);
+    }
+    
+    digitalWrite(_latchPin, HIGH); 
+    digitalWrite(_latchPin, LOW); 
 }
 
 
@@ -101,20 +122,18 @@ uint8_t ShiftRegister74HC595::get(int pin)
 // Sets all pins of all shift registers to HIGH (1).
 void ShiftRegister74HC595::setAllHigh()
 {
-    int i; 
-    for (i = 0; i < _numberOfShiftRegisters; i++) {
+    for (int i = 0; i < _numberOfShiftRegisters; i++) {
         _digitalValues[i] = 255;
     }
-    setAll(_digitalValues); 
+    updateRegisters();
 }
 
 
 // Sets all pins of all shift registers to LOW (0).
 void ShiftRegister74HC595::setAllLow()
 {
-    int i; 
-    for (i = 0; i < _numberOfShiftRegisters; i++) {
+    for (int i = 0; i < _numberOfShiftRegisters; i++) {
         _digitalValues[i] = 0;
     }
-    setAll(_digitalValues); 
+    updateRegisters();
 }
