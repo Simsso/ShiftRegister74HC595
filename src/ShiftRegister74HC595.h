@@ -25,6 +25,7 @@ public:
     void updateRegisters();
     void setAllLow();
     void setAllHigh(); 
+    uint8_t get(const uint8_t pin);
 
 private:
     uint8_t _clockPin;
