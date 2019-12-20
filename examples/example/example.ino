@@ -40,6 +40,7 @@ void loop() {
   
   // read pin (zero based, i.e. 6th pin)
   uint8_t stateOfPin5 = sr.get(5);
+  sr.set(6, stateOfPin5);
 
 
   // set pins without immediate update
