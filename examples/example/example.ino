@@ -8,8 +8,8 @@
 #include <ShiftRegister74HC595.h>
 
 // create a global shift register object
-// parameters: (number of shift registers, data pin, clock pin, latch pin)
-ShiftRegister74HC595 sr (1, 0, 1, 2); 
+// parameters: <number of shift registers> (data pin, clock pin, latch pin)
+ShiftRegister74HC595<1> sr(0, 1, 2);
  
 void setup() { 
 }
@@ -40,6 +40,7 @@ void loop() {
   
   // read pin (zero based, i.e. 6th pin)
   uint8_t stateOfPin5 = sr.get(5);
+  sr.set(6, stateOfPin5);
 
 
   // set pins without immediate update
