@@ -1,11 +1,12 @@
 /*
   ShiftRegister74HC595.hpp - Library for simplified control of 74HC595 shift registers.
-  Created by Timo Denk (www.timodenk.com), Nov 2014.
-  Additional information is available at http://shiftregister.simsso.de/
+  Developed and maintained by Timo Denk and contributers, since Nov 2014.
+  Additional information is available at https://timodenk.com/blog/shift-register-arduino-library/
   Released into the public domain.
 */
 
 // ShiftRegister74HC595 constructor
+// Size is the number of shiftregisters stacked in serial
 template<uint8_t Size>
 ShiftRegister74HC595<Size>::ShiftRegister74HC595(const uint8_t serialDataPin, const uint8_t clockPin, const uint8_t latchPin)
 {
@@ -71,7 +72,7 @@ void ShiftRegister74HC595<Size>::set(const uint8_t pin, const uint8_t value)
 }
 
 // Updates the shift register pins to the stored output values.
-// This is the function that actually writes data into the shift registers of the 74HC595
+// This is the function that actually writes data into the shift registers of the 74HC595.
 template<uint8_t Size>
 void ShiftRegister74HC595<Size>::updateRegisters()
 {
