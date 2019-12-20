@@ -4,7 +4,6 @@
   Additional information is available at https://timodenk.com/blog/shift-register-arduino-library/
   Released into the public domain.
 */
-*/
 
 #include <Arduino.h>
 #include "ShiftRegister74HC595.h"
