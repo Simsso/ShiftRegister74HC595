@@ -1,5 +1,5 @@
 /*
-  ShiftRegister74HC595.cpp - Library for simplified control of 74HC595 shift registers.
+  ShiftRegister74HC595.hpp - Library for simplified control of 74HC595 shift registers.
   Created by Timo Denk (www.timodenk.com), Nov 2014.
   Additional information is available at http://shiftregister.simsso.de/
   Released into the public domain.
@@ -54,7 +54,7 @@ void ShiftRegister74HC595<Size>::setAll_P(const uint8_t * digitalValuesProgmem)
 #endif
 
 // Retrieve all states of the shift registers' output pins.
-// The returned array's length is equal to the numbe of shift registers.
+// The returned array's length is equal to the number of shift registers.
 template<uint8_t Size>
 uint8_t * ShiftRegister74HC595<Size>::getAll()
 {

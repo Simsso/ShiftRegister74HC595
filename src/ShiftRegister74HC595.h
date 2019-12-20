@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 template<uint8_t Size>
 class ShiftRegister74HC595 
