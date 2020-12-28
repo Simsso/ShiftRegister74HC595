@@ -26,8 +26,10 @@ public:
     void setAllLow();
     void setAllHigh(); 
     uint8_t get(const uint8_t pin);
+    void order(uint8_t o);
 
 private:
+    uint8_t bo = MSBFIRST;
     uint8_t _clockPin;
     uint8_t _serialDataPin;
     uint8_t _latchPin;

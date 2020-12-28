@@ -77,7 +77,7 @@ template<uint8_t Size>
 void ShiftRegister74HC595<Size>::updateRegisters()
 {
     for (int i = Size - 1; i >= 0; i--) {
-        shiftOut(_serialDataPin, _clockPin, MSBFIRST, _digitalValues[i]);
+        shiftOut(_serialDataPin, _clockPin, bo, _digitalValues[i]);
     }
     
     digitalWrite(_latchPin, HIGH); 
@@ -118,4 +118,10 @@ void ShiftRegister74HC595<Size>::setAllLow()
         _digitalValues[i] = 0;
     }
     updateRegisters();
+}
+
+template<uint8_t Size>
+void ShiftRegister74HC595<Size>::order(uint8_t o)
+{
+    bo = o;
 }
