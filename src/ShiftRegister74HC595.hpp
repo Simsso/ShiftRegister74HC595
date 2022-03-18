@@ -15,6 +15,8 @@ ShiftRegister74HC595<Size>::ShiftRegister74HC595(const uint8_t serialDataPin, co
     _serialDataPin = serialDataPin;
     _latchPin = latchPin;
 
+    bo = MSBFIRST;
+
     // define pins as outputs
     pinMode(clockPin, OUTPUT);
     pinMode(serialDataPin, OUTPUT);
