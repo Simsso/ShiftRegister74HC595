@@ -5,6 +5,9 @@
   Released into the public domain.
 */
 
+
+#if !defined(SHIFT_REGISTER_USES_SPI_WITH_FREQUENCY)
+
 // ShiftRegister74HC595 constructor
 // Size is the number of shiftregisters stacked in serial
 template<uint8_t Size>
@@ -32,6 +35,34 @@ ShiftRegister74HC595<Size>::ShiftRegister74HC595(const uint8_t serialDataPin, co
 
     updateRegisters();       // reset shift register
 }
+
+#else
+
+// ShiftRegister74HC595 constructor
+// Size is the number of shiftregisters stacked in serial
+template<uint8_t Size>
+ShiftRegister74HC595<Size>::ShiftRegister74HC595(const uint8_t latchPin)
+{ 
+    _latchPin = latchPin;
+
+    bo = MSBFIRST;
+
+    // define pins as outputs
+    pinMode(latchPin, OUTPUT);
+
+    // set pins low
+    digitalWrite(latchPin, LOW);
+
+    // allocates the specified number of bytes and initializes them to zero
+    memset(_digitalValues, 0, Size * sizeof(uint8_t));
+
+    SPI.begin(SPISettings(SHIFT_REGISTER_USES_SPI_WITH_FREQUENCY, bo, SPI_MODE0);)
+
+    updateRegisters();       // reset shift register
+}
+
+
+#endif 
 
 // Set all pins of the shift registers at once.
 // digitalVAlues is a uint8_t array where the length is equal to the number of shift registers.
@@ -73,6 +104,8 @@ void ShiftRegister74HC595<Size>::set(const uint8_t pin, const uint8_t value)
     updateRegisters();
 }
 
+
+#if !defined(SHIFT_REGISTER_USES_SPI_WITH_FREQUENCY)
 // Updates the shift register pins to the stored output values.
 // This is the function that actually writes data into the shift registers of the 74HC595.
 template<uint8_t Size>
@@ -85,7 +118,20 @@ void ShiftRegister74HC595<Size>::updateRegisters()
     digitalWrite(_latchPin, HIGH); 
     digitalWrite(_latchPin, LOW); 
 }
-
+#else 
+// Updates the shift register pins to the stored output values.
+// This is the function that actually writes data into the shift registers of the 74HC595.
+template<uint8_t Size>
+void ShiftRegister74HC595<Size>::updateRegisters()
+{
+    for (int i = Size - 1; i >= 0; i--) {
+        SPI.transfer(digitalValues[i]);
+    }
+    
+    digitalWrite(_latchPin, HIGH); 
+    digitalWrite(_latchPin, LOW); 
+}
+#endif 
 // Equivalent to set(int pin, uint8_t value), except the physical shift register is not updated.
 // Should be used in combination with updateRegisters().
 template<uint8_t Size>

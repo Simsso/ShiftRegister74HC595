@@ -4,6 +4,7 @@
   Additional information is available at https://timodenk.com/blog/shift-register-arduino-library/
   Released into the public domain.
 */
-
+#define SHIFT_REGISTER_USES_SPI_WITH_FREQUENCY 20000000
 #include <Arduino.h>
 #include "ShiftRegister74HC595.h"
+
