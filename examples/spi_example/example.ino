@@ -5,12 +5,13 @@
   Released into the public domain.
 */
 
-// 20000000UL <- your chip speed. if arduino cand handle that, it will work at max it can. On uno up to 8mhz. 20000000UL means 20Mhz
+// 20000000UL <- your chip speed. if arduino cant handle that, it will work at max it can. On uno up to 8mhz. 20000000UL means 20Mhz
+// MOSI to shift register DATA pin, SCLK to CLock pin, Latch pin configurable
 #define SHIFT_REGISTER_USES_SPI_WITH_FREQUENCY 20000000UL
 #include <ShiftRegister74HC595.h>
 
 // create a global shift register object
-// parameters: <number of shift registers> (data pin, clock pin, latch pin)
+// parameters: <number of shift registers> (latch pin)
 ShiftRegister74HC595<1> sr(7);
  
 void setup() { 
