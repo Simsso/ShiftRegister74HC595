@@ -125,7 +125,7 @@ template<uint8_t Size>
 void ShiftRegister74HC595<Size>::updateRegisters()
 {
     for (int i = Size - 1; i >= 0; i--) {
-        SPI.transfer(digitalValues[i]);
+        SPI.transfer(_digitalValues[i]);
     }
     
     digitalWrite(_latchPin, HIGH); 
