@@ -91,7 +91,7 @@ void ShiftRegister74HC595<Size>::updateRegisters()
 template<uint8_t Size>
 void ShiftRegister74HC595<Size>::setNoUpdate(const uint8_t pin, const uint8_t value)
 {
-    bitWrite(*_digitalValues, pin, value);
+    (value) ? bitSet(_digitalValues[pin / 8], pin % 8) : bitClear(_digitalValues[pin / 8], pin % 8);
 }
 
 // Returns the state of the given pin.
@@ -99,7 +99,7 @@ void ShiftRegister74HC595<Size>::setNoUpdate(const uint8_t pin, const uint8_t va
 template<uint8_t Size>
 uint8_t ShiftRegister74HC595<Size>::get(const uint8_t pin)
 {
-    return bitRead(*_digitalValues, pin);
+    return (_digitalValues[pin / 8] >> (pin % 8)) & 1;
 }
 
 // Sets all pins of all shift registers to HIGH (1).
