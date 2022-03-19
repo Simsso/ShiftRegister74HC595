@@ -56,7 +56,8 @@ ShiftRegister74HC595<Size>::ShiftRegister74HC595(const uint8_t latchPin)
     // allocates the specified number of bytes and initializes them to zero
     memset(_digitalValues, 0, Size * sizeof(uint8_t));
 
-    SPI.begin(SPISettings(SHIFT_REGISTER_USES_SPI_WITH_FREQUENCY, bo, SPI_MODE0);)
+    SPI.begin();
+    SPI.beginTransaction(SPISettings(SHIFT_REGISTER_USES_SPI_WITH_FREQUENCY, bo, SPI_MODE0));
 
     updateRegisters();       // reset shift register
 }
