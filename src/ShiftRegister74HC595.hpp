@@ -45,6 +45,9 @@ ShiftRegister74HC595<Size>::ShiftRegister74HC595(const uint8_t latchPin)
 { 
     _latchPin = latchPin;
 
+    _pinMask = digitalPinToBitMask(latchPin);
+    _port = portOutputRegister(digitalPinToPort(latchPin));
+
     bo = MSBFIRST;
 
     // define pins as outputs
@@ -125,12 +128,11 @@ void ShiftRegister74HC595<Size>::updateRegisters()
 template<uint8_t Size>
 void ShiftRegister74HC595<Size>::updateRegisters()
 {
+    *_port &= ~_pinMask;
     for (int i = Size - 1; i >= 0; i--) {
         SPI.transfer(_digitalValues[i]);
     }
-    
-    digitalWrite(_latchPin, HIGH); 
-    digitalWrite(_latchPin, LOW); 
+    *_port |= _pinMask;
 }
 #endif 
 // Equivalent to set(int pin, uint8_t value), except the physical shift register is not updated.

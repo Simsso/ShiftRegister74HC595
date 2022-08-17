@@ -43,6 +43,9 @@ private:
     uint8_t _latchPin;
 
     uint8_t  _digitalValues[Size];
+
+    uint8_t *_port;
+    uint8_t _pinMask;
 };
 
 #include "ShiftRegister74HC595.hpp"
