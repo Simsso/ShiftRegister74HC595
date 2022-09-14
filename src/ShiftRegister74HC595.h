@@ -37,7 +37,11 @@ public:
     void order(uint8_t o);
 
 private:
+    #ifdef __AVR__
     uint8_t bo = MSBFIRST;
+    #else
+    BitOrder bo = MSBFIRST;
+    #endif
     uint8_t _clockPin;
     uint8_t _serialDataPin;
     uint8_t _latchPin;
