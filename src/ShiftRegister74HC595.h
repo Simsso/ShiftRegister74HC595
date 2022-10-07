@@ -9,11 +9,19 @@
 
 #include <Arduino.h>
 
+#if defined(SHIFT_REGISTER_USES_SPI_WITH_FREQUENCY)
+#include <SPI.h>
+#endif
+
 template<uint8_t Size>
 class ShiftRegister74HC595 
 {
 public:
+#if !defined(SHIFT_REGISTER_USES_SPI_WITH_FREQUENCY)
     ShiftRegister74HC595(const uint8_t serialDataPin, const uint8_t clockPin, const uint8_t latchPin);
+#else
+    ShiftRegister74HC595(const uint8_t latchPin);
+#endif
     
     void setAll(const uint8_t * digitalValues);
 #ifdef __AVR__
@@ -26,13 +34,22 @@ public:
     void setAllLow();
     void setAllHigh(); 
     uint8_t get(const uint8_t pin);
+    void order(uint8_t o);
 
 private:
+    #ifdef __AVR__
+    uint8_t bo = MSBFIRST;
+    #else
+    BitOrder bo = MSBFIRST;
+    #endif
     uint8_t _clockPin;
     uint8_t _serialDataPin;
     uint8_t _latchPin;
 
     uint8_t  _digitalValues[Size];
+
+    uint8_t *_port;
+    uint8_t _pinMask;
 };
 
 #include "ShiftRegister74HC595.hpp"
