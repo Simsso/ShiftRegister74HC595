@@ -16,6 +16,7 @@ public:
     ShiftRegister74HC595(const uint8_t serialDataPin, const uint8_t clockPin, const uint8_t latchPin);
     
     void setAll(const uint8_t * digitalValues);
+    void setRegister(const uint8_t reg, const uint8_t digitalValues);
 #ifdef __AVR__
     void setAll_P(const uint8_t * digitalValuesProgmem); // Experimental, PROGMEM data
 #endif
