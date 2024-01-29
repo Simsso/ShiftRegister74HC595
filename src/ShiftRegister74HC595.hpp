@@ -40,6 +40,17 @@ void ShiftRegister74HC595<Size>::setAll(const uint8_t * digitalValues)
     updateRegisters();
 }
 
+// Set all pins of a single shift registers at once.
+// digitalVAlues is a uint8_t, reg is a uint8_t from 0 to Size -1
+template<uint8_t Size>
+void ShiftRegister74HC595<Size>::setRegister(const uint8_t reg, const uint8_t digitalValues)
+{
+    if (reg >=0 && reg < Size) {
+        memcpy( _digitalValues + reg, &digitalValues, 1);   // dest, src, size
+        updateRegisters();
+    }
+}
+
 // Experimental
 // The same as setAll, but the data is located in PROGMEM
 // For example with:
