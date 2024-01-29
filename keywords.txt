@@ -1,6 +1,7 @@
 ShiftRegister74HC595	KEYWORD1
 setAll	KEYWORD2
 setAll_P	KEYWORD2
+setRegister	KEYWORD2
 getAll	KEYWORD2
 set	KEYWORD2
 setNoUpdate	KEYWORD2
